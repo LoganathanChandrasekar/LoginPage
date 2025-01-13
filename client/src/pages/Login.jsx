@@ -7,7 +7,7 @@ import {toast} from 'react-toastify'
 
 const Login = () => {
     const navigate = useNavigate()
-    const {backendUrl,setIsLoggedIn}=useContext(AppContent)
+    const {backendUrl,setIsLoggedIn,getUserData}=useContext(AppContent)
 
     const  [state, setState] = useState('Sign up');
     const [name,setName] = useState('');
@@ -19,17 +19,19 @@ const Login = () => {
         e.preventDefault()
         axios.defaults.withCredentials = true;
         if(state ==='Sign up'){
-          const {data}=await axios.post(backendUrl + '/api/auth/register',{name,password,email})
+          const {data}=await axios.post(backendUrl + '/api/auth/register',{name,email,password})
           if(data.success){
             setIsLoggedIn(true);
+            getUserData()
             navigate('/')
           }else{
             toast.error(data.message);
           }
         }else{
-          const {data}=await axios.post(backendUrl + '/api/auth/login',{name,password,email})
+          const {data}=await axios.post(backendUrl + '/api/auth/login',{email,password})
           if(data.success){
             setIsLoggedIn(true);
+            getUserData()
             navigate('/')
           }else{
             toast.error(data.message);
@@ -80,7 +82,7 @@ const Login = () => {
             required/>
           </div>
           <p onClick={()=>navigate('/reset-password')} className="mb-4 text-indigo-500 cursor-pointer">Forgot Password?</p>
-          <button className='w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900'>{state}</button>
+          <button type="submit" className='w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900'>{state}</button>
         </form>
         {state === 'Sign up'? (
           <p className='text-gray-400 text-center text-xs mt-4'>Already have an account?{' '} 

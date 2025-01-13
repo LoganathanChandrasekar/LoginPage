@@ -11,10 +11,10 @@ export const getUserData=async (req, res, next) => {
         }
          return res.json({
             success: true,
-            message: 
+            userData:
         {
          name: user.name,
-         verified: user.verified
+         isAccountVerified: user.isAccountVerified
         }});;
     }catch(error){
         return res.json({
