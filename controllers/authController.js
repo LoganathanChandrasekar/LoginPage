@@ -39,7 +39,10 @@ export const register= async(req,res)=>{
             text:`Hello ${name}, Welcome to fun chat. Your Login Credentials are: \n Email: ${email} `
         }
         await transporter.sendMail(mailOptions)
-        return res.json({success: true})
+        return res.json({
+            success: true,
+            message:"Sign Up Successfully"
+        })
     }catch(error){
         res.json({
             success: false,

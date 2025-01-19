@@ -1,5 +1,5 @@
 import React ,{useContext, useState} from 'react'
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { AppContent } from '../context/AppContext';
 import axios from 'axios'
@@ -23,6 +23,7 @@ const Login = () => {
           if(data.success){
             setIsLoggedIn(true);
             getUserData()
+            toast.success(data.message);
             navigate('/')
           }else{
             toast.error(data.message);
@@ -32,6 +33,7 @@ const Login = () => {
           if(data.success){
             setIsLoggedIn(true);
             getUserData()
+            toast.success(data.message);
             navigate('/')
           }else{
             toast.error(data.message);
